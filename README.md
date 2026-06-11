@@ -31,6 +31,7 @@ npm start
 This also acts as a scenario to manually verify the system behaves as expected under various conditions. There are 2 patients, 2 clinicians, and a series of appointment booking and querying actions.
 
 1. Create Patient A
+   
 `bash
 curl -s -X POST http://localhost:3000/patients \
   -H "Content-Type: application/json" \
@@ -40,7 +41,8 @@ curl -s -X POST http://localhost:3000/patients \
     "dateOfBirth": "2001-10-03"
   }'
 `
-2. Create Patient B
+3. Create Patient B
+
 `bash
 curl -s -X POST http://localhost:3000/patients \
   -H "Content-Type: application/json" \
@@ -50,7 +52,9 @@ curl -s -X POST http://localhost:3000/patients \
     "dateOfBirth": "1995-03-22"
   }'
 `
-3. Create Clinician A
+
+4. Create Clinician A
+
 `bash
 curl -s -X POST http://localhost:3000/clinicians \
   -H "Content-Type: application/json" \
@@ -59,7 +63,9 @@ curl -s -X POST http://localhost:3000/clinicians \
     "lastName": "Morgan"
   }'
 `
-4. Create Clinician B
+
+5. Create Clinician B
+
 `bash
 curl -s -X POST http://localhost:3000/clinicians \
   -H "Content-Type: application/json" \
@@ -69,7 +75,8 @@ curl -s -X POST http://localhost:3000/clinicians \
   }'
 `
 
-5. Book Appointment — Patient A + Doctor A
+6. Book Appointment — Patient A + Doctor A
+
 `bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
@@ -80,7 +87,9 @@ curl -s -X POST http://localhost:3000/appointments \
     "clinicianId": 1
   }'
 `
-6. Book Appointment — Patient A + Doctor B (different time)
+
+7. Book Appointment — Patient A + Doctor B (different time)
+
 `bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
@@ -92,7 +101,8 @@ curl -s -X POST http://localhost:3000/appointments \
   }'
 `
 
-7. Book Appointment — Patient B + Doctor A (starts exactly when Doctor A's first appointment ends)
+8. Book Appointment — Patient B + Doctor A (starts exactly when Doctor A's first appointment ends)
+
 `bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
@@ -103,7 +113,9 @@ curl -s -X POST http://localhost:3000/appointments \
     "clinicianId": 1
   }'
 `
-8. Attempt overlapping appointment — Doctor A already booked 10:00–11:00 (should conflict)
+
+9. Attempt overlapping appointment — Doctor A already booked 10:00–11:00 (should conflict)
+
 `bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
@@ -114,24 +126,31 @@ curl -s -X POST http://localhost:3000/appointments \
     "clinicianId": 1
   }'
 `
-9. Query all appointments as admin
+
+10. Query all appointments as admin
+
 `bash
 curl -s http://localhost:3000/appointments \
   -H "x-role: admin"
 `
-10. Query appointments for Doctor 1 between two times
+
+11. Query appointments for Doctor 1 between two times
+
 `bash
 curl -s "http://localhost:3000/appointments?from=2026-06-14T09:00:00Z&to=2026-06-14T12:00:00Z" \
   -H "x-role: admin" \
   -H "x-clinician-id: 1"
 `
 
-11. Query with invalid ISO datetime
+12. Query with invalid ISO datetime
+
 `bash
 curl -s "http://localhost:3000/appointments?from=14-06-2026&to=not-a-date" \
   -H "x-role: admin"
 `
-12. Book with invalid ISO datetime
+
+13. Book with invalid ISO datetime
+
 `bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
@@ -143,7 +162,8 @@ curl -s -X POST http://localhost:3000/appointments \
   }'
 `
 
-13. Book with valid datetime but start is after end
+14. Book with valid datetime but start is after end
+
 `bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
