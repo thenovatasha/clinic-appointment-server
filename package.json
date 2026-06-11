@@ -1,0 +1,42 @@
+{
+    "name": "clinic-appointment",
+    "version": "1.0.0",
+    "description": "Github Repo with clinic appointment",
+    "main": "index.js",
+    "scripts": {
+        "test": "vitest",
+        "build": "tsc && tsc-alias",
+        "start": "node dist/server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/thenovatasha/clinic-appointment.git"
+    },
+    "type": "module",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/thenovatasha/clinic-appointment/issues"
+    },
+    "homepage": "https://github.com/thenovatasha/clinic-appointment#readme",
+    "devDependencies": {
+        "@types/express": "^5.0.6",
+        "@types/node": "^25.9.3",
+        "@types/supertest": "^7.2.0",
+        "drizzle-kit": "^0.31.10",
+        "supertest": "^7.2.2",
+        "tsc-alias": "^1.8.17",
+        "tsx": "^4.22.4",
+        "typescript": "^6.0.3",
+        "vitest": "^4.1.8"
+    },
+    "dependencies": {
+        "@libsql/client": "^0.17.3",
+        "dotenv": "^17.4.2",
+        "drizzle-orm": "^0.45.2",
+        "express": "^5.2.1",
+        "helmet": "^8.2.0",
+        "zod": "^4.4.3"
+    }
+}
