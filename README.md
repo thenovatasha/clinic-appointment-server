@@ -1,7 +1,9 @@
 # clinic-appointment
 
 # How to run with Docker: 
-`docker compose up --build`
+`bash
+docker compose up --build
+`
 
 Note: Ensure that port 3000 is available
 
@@ -9,10 +11,18 @@ Note: Ensure that port 3000 is available
 - Ensure Node v24.14.1 or above. 
 
 Follow these commands in sequence: 
-`npm i`
-`npm run build`
-`npx drizzle-kit generate`
-`npm start`
+`bash
+npm i
+`
+`bash
+npm run build
+`
+`bash
+npx drizzle-kit generate
+`
+`bash
+npm start
+`
 
 # To run Test: 
 `npm run test`
@@ -21,7 +31,8 @@ Follow these commands in sequence:
 This also acts as a scenario to manually verify the system behaves as expected under various conditions. There are 2 patients, 2 clinicians, and a series of appointment booking and querying actions.
 
 1. Create Patient A
-`curl -s -X POST http://localhost:3000/patients \
+`bash
+curl -s -X POST http://localhost:3000/patients \
   -H "Content-Type: application/json" \
   -d '{
     "firstName": "Emily",
@@ -30,7 +41,8 @@ This also acts as a scenario to manually verify the system behaves as expected u
   }'
 `
 2. Create Patient B
-`curl -s -X POST http://localhost:3000/patients \
+`bash
+curl -s -X POST http://localhost:3000/patients \
   -H "Content-Type: application/json" \
   -d '{
     "firstName": "James",
@@ -39,7 +51,8 @@ This also acts as a scenario to manually verify the system behaves as expected u
   }'
 `
 3. Create Clinician A
-`curl -s -X POST http://localhost:3000/clinicians \
+`bash
+curl -s -X POST http://localhost:3000/clinicians \
   -H "Content-Type: application/json" \
   -d '{
     "firstName": "Daniel",
@@ -47,7 +60,8 @@ This also acts as a scenario to manually verify the system behaves as expected u
   }'
 `
 4. Create Clinician B
-`curl -s -X POST http://localhost:3000/clinicians \
+`bash
+curl -s -X POST http://localhost:3000/clinicians \
   -H "Content-Type: application/json" \
   -d '{
     "firstName": "Sarah",
@@ -56,7 +70,8 @@ This also acts as a scenario to manually verify the system behaves as expected u
 `
 
 5. Book Appointment — Patient A + Doctor A
-`curl -s -X POST http://localhost:3000/appointments \
+`bash
+curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
     "start": "2026-06-14T10:00:00Z",
@@ -66,7 +81,8 @@ This also acts as a scenario to manually verify the system behaves as expected u
   }'
 `
 6. Book Appointment — Patient A + Doctor B (different time)
-`curl -s -X POST http://localhost:3000/appointments \
+`bash
+curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
     "start": "2026-06-14T13:00:00Z",
@@ -77,7 +93,8 @@ This also acts as a scenario to manually verify the system behaves as expected u
 `
 
 7. Book Appointment — Patient B + Doctor A (starts exactly when Doctor A's first appointment ends)
-`curl -s -X POST http://localhost:3000/appointments \
+`bash
+curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
     "start": "2026-06-14T11:00:00Z",
@@ -87,7 +104,8 @@ This also acts as a scenario to manually verify the system behaves as expected u
   }'
 `
 8. Attempt overlapping appointment — Doctor A already booked 10:00–11:00 (should conflict)
-`curl -s -X POST http://localhost:3000/appointments \
+`bash
+curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
     "start": "2026-06-14T10:30:00Z",
@@ -97,22 +115,25 @@ This also acts as a scenario to manually verify the system behaves as expected u
   }'
 `
 9. Query all appointments as admin
-`curl -s http://localhost:3000/appointments \
+`bash
+curl -s http://localhost:3000/appointments \
   -H "x-role: admin"
 `
 10. Query appointments for Doctor 1 between two times
-`curl -s "http://localhost:3000/appointments?from=2026-06-14T09:00:00Z&to=2026-06-14T12:00:00Z" \
+`bash
+curl -s "http://localhost:3000/appointments?from=2026-06-14T09:00:00Z&to=2026-06-14T12:00:00Z" \
   -H "x-role: admin" \
   -H "x-clinician-id: 1"
 `
 
 11. Query with invalid ISO datetime
-`
+`bash
 curl -s "http://localhost:3000/appointments?from=14-06-2026&to=not-a-date" \
   -H "x-role: admin"
 `
 12. Book with invalid ISO datetime
-`curl -s -X POST http://localhost:3000/appointments \
+`bash
+curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
     "start": "14-06-2026 10:00",
@@ -123,7 +144,7 @@ curl -s "http://localhost:3000/appointments?from=14-06-2026&to=not-a-date" \
 `
 
 13. Book with valid datetime but start is after end
-`
+`bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
