@@ -11,28 +11,30 @@ Note: Ensure that port 3000 is available
 - Ensure Node v24.14.1 or above. 
 
 Follow these commands in sequence: 
-`bash
+```bash
 npm i
-`
-`bash
+````
+```
 npm run build
-`
-`bash
+```
+```bash
 npx drizzle-kit generate
-`
-`bash
+```
+```bash
 npm start
-`
+```
 
 # To run Test: 
-`npm run test`
+```bash
+npm run test
+```
 
 # Examples of API calls to test the appointment scheduling system:
 This also acts as a scenario to manually verify the system behaves as expected under various conditions. There are 2 patients, 2 clinicians, and a series of appointment booking and querying actions.
 
 1. Create Patient A
    
-`bash
+```bash
 curl -s -X POST http://localhost:3000/patients \
   -H "Content-Type: application/json" \
   -d '{
@@ -40,10 +42,10 @@ curl -s -X POST http://localhost:3000/patients \
     "lastName": "Carter",
     "dateOfBirth": "2001-10-03"
   }'
-`
+```
 3. Create Patient B
 
-`bash
+```bash
 curl -s -X POST http://localhost:3000/patients \
   -H "Content-Type: application/json" \
   -d '{
@@ -51,33 +53,33 @@ curl -s -X POST http://localhost:3000/patients \
     "lastName": "Whitfield",
     "dateOfBirth": "1995-03-22"
   }'
-`
+```
 
 4. Create Clinician A
 
-`bash
+```bash
 curl -s -X POST http://localhost:3000/clinicians \
   -H "Content-Type: application/json" \
   -d '{
     "firstName": "Daniel",
     "lastName": "Morgan"
   }'
-`
+```
 
 5. Create Clinician B
 
-`bash
+```bash
 curl -s -X POST http://localhost:3000/clinicians \
   -H "Content-Type: application/json" \
   -d '{
     "firstName": "Sarah",
     "lastName": "Ellison"
   }'
-`
+```
 
 6. Book Appointment — Patient A + Doctor A
 
-`bash
+```bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
@@ -86,11 +88,11 @@ curl -s -X POST http://localhost:3000/appointments \
     "patientId": 1,
     "clinicianId": 1
   }'
-`
+```
 
 7. Book Appointment — Patient A + Doctor B (different time)
 
-`bash
+```bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
@@ -99,11 +101,11 @@ curl -s -X POST http://localhost:3000/appointments \
     "patientId": 1,
     "clinicianId": 2
   }'
-`
+```
 
 8. Book Appointment — Patient B + Doctor A (starts exactly when Doctor A's first appointment ends)
 
-`bash
+```bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
@@ -112,11 +114,11 @@ curl -s -X POST http://localhost:3000/appointments \
     "patientId": 2,
     "clinicianId": 1
   }'
-`
+```
 
 9. Attempt overlapping appointment — Doctor A already booked 10:00–11:00 (should conflict)
 
-`bash
+```bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
@@ -125,33 +127,33 @@ curl -s -X POST http://localhost:3000/appointments \
     "patientId": 2,
     "clinicianId": 1
   }'
-`
+```
 
 10. Query all appointments as admin
 
-`bash
+```bash
 curl -s http://localhost:3000/appointments \
   -H "x-role: admin"
-`
+```
 
 11. Query appointments for Doctor 1 between two times
 
-`bash
+```bash
 curl -s "http://localhost:3000/appointments?from=2026-06-14T09:00:00Z&to=2026-06-14T12:00:00Z" \
   -H "x-role: admin" \
   -H "x-clinician-id: 1"
-`
+```
 
 12. Query with invalid ISO datetime
 
-`bash
+```bash
 curl -s "http://localhost:3000/appointments?from=14-06-2026&to=not-a-date" \
   -H "x-role: admin"
-`
+```
 
 13. Book with invalid ISO datetime
 
-`bash
+```bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
@@ -160,11 +162,11 @@ curl -s -X POST http://localhost:3000/appointments \
     "patientId": 1,
     "clinicianId": 1
   }'
-`
+```
 
 14. Book with valid datetime but start is after end
 
-`bash
+```bash
 curl -s -X POST http://localhost:3000/appointments \
   -H "Content-Type: application/json" \
   -d '{
@@ -173,7 +175,7 @@ curl -s -X POST http://localhost:3000/appointments \
     "patientId": 1,
     "clinicianId": 1
   }'
-`
+```
 
 # Design Decisions
 ## Architecture
