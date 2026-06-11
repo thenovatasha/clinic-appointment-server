@@ -1,14 +1,15 @@
 # clinic-appointment
 
 # How to run with Docker: 
-`bash
+```bash
 docker compose up --build
-`
+```
 
 Note: Ensure that port 3000 is available
 
 # To run without Docker (using NPM): 
-- Ensure Node v24.14.1 or above. 
+> [!NOTE]
+> Requires Node.js v24.14.1 or above.
 
 Follow these commands in sequence: 
 ```bash
